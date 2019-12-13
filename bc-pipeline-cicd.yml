@@ -1,0 +1,17 @@
+kind: "BuildConfig"
+apiVersion: "v1"
+metadata:
+  name: "ci-pipeline"
+spec:
+  source:
+    env:
+    - name: "OPENSHIFT_PROJECT"
+      value: "gd-web"
+    - name: "GIT_BRANCH"
+      value: "openshift-jenkins"
+    git:
+      uri: "https://github.com/alvarolop/cicd-projects.git"
+      ref: master
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: "Jenkinsfile"

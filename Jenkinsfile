@@ -1,16 +1,15 @@
 node('maven') {
 
     def OPENSHIFT_PROJECT = "devops"
-    def GIT_URL = "git@github.com:alvarolop/cicd-projects.git"
+    def GIT_URL = "https://github.com/alvarolop/cicd-projects.git"
     def GIT_BRANCH = "master"
-    def GIT_CREDENTIALS = "devops-gitlab"
 
     stage("Check project ${OPENSHIFT_PROJECT} exists") {
         openshift.withCluster() {
             // Check if project exists and create it if not
             if(!openshift.selector("project", OPENSHIFT_PROJECT).exists()){
-                openshift.newProject(OPENSHIFT_PROJECT)
-                echo "Project ${OPENSHIFT_PROJECT} did not exist. Created"
+                // openshift.newProject(OPENSHIFT_PROJECT)
+                echo "Project ${OPENSHIFT_PROJECT} did not exist."
             }
 
             // Check current project
@@ -25,7 +24,7 @@ node('maven') {
     stage("Clone application sources") {
         dir ('/tmp/git-clone') {
             echo "git clone -b ${GIT_BRANCH} ${GIT_URL}"
-            git branch: GIT_BRANCH, credentialsId: GIT_CREDENTIALS, url: GIT_URL
+            git branch: GIT_BRANCH, url: GIT_URL
         }
     }
 
