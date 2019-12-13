@@ -8,8 +8,8 @@ node('maven') {
         openshift.withCluster() {
             // Check if project exists and create it if not
             if(!openshift.selector("project", OPENSHIFT_PROJECT).exists()){
-                openshift.newProject(OPENSHIFT_PROJECT)
-                echo "Project ${OPENSHIFT_PROJECT} did not exist. Created"
+                // openshift.newProject(OPENSHIFT_PROJECT)
+                echo "Project ${OPENSHIFT_PROJECT} did not exist"
             }
 
             // Check current project
